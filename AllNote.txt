@@ -1,0 +1,24 @@
+-------------05.Index Route---------------------
+
+GET/listings -->All listings
+
+GET/listings/:id -->specific listing data(for view)
+
+------------------08.Update(Edit & Update)--------------
+GET     /listings/:id/edit->edit form->submit
+POST    /listings/:id
+
+----------------Day47-------------------------
+Handling Deletion
+using Mongoose Middleware
+
+We can use 2 middleware:
+=>Pre-run before the query is executed
+=>Post-run after the query is executed
+
+customerSchema.post("findOneAndDelete",async(customer)=>{
+    if(customer.orders.length){
+        let res=await Order.deleteMany({_id:{$in:customer.orders}});
+        console.log(res);
+    }
+})
