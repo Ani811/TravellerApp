@@ -8,7 +8,7 @@ const ejsMate=require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js")
 const ExpressError=require("./utils/ExpressError.js");
 const { wrap } = require("module");
-const {listingSchema}=require("./schema.js")
+const {listingSchema,reviewSchema}=require("./schema.js")
 const Review=require("./models/review.js");
 const { log } = require("console");
 
@@ -33,7 +33,7 @@ app.use(methodOverride("_method"));
 app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
-app.get("/",async (req,res)=>{
+app.get("/",async(req,res)=>{
     const allListings=await Listing.find({});
     res.render("listings/index.ejs",{allListings})
 });
@@ -41,15 +41,27 @@ app.get("/",async (req,res)=>{
 const validateListing=(req,res,next)=>{
 let {error}=listingSchema.validate(req.body);   //validation check 
     if(error){
-        let errMsg=error.details.map((el)=>el.message)
-        throw new ExpressError(400,error)
+        let errMsg=error.details.map((el)=>el.message).join(",")
+        throw new ExpressError(400,errMsg)
     }else{
         next();
     }
 }
 
+const validateReview=(req,res,next)=>{
+let {error}=reviewSchema.validate(req.body);   //validation check 
+    if(error){
+        let errMsg=error.details.map((el)=>el.message).join(",")
+        throw new ExpressError(400,errMsg)
+    }else{
+        next();
+    }
+}
+
+
 //index Route
-app.get("/listings",wrapAsync( async (req, res) => {
+app.get("/listings",
+    wrapAsync( async (req, res) => {
     const allListings=await Listing.find({});
     res.render("listings/index.ejs",{allListings});
 }));
@@ -62,7 +74,7 @@ app.get("/listings/new",(req,res)=>{
 //show route
 app.get("/listings/:id",wrapAsync( async(req,res)=>{
     let {id}=req.params;
-    const listing=await Listing.findById(id.trim());
+    const listing=await Listing.findById(id.trim()).populate("reviews");
     res.render("listings/show.ejs",{listing})
 }))
 
@@ -103,7 +115,7 @@ app.delete("/listings/:id",wrapAsync( async(req,res)=>{
 
 //Reviews
 //Post Route
-app.post("/listings/:id/reviews",async (req,res)=>{
+app.post("/listings/:id/reviews",validateReview,wrapAsync(async (req,res)=>{
     let listing=await Listing.findById(req.params.id)
     let newReview=new Review(req.body.review);
 
@@ -111,11 +123,11 @@ app.post("/listings/:id/reviews",async (req,res)=>{
     await newReview.save();
     await listing.save();
     
-    console.log("new Review saved");
-    res.send("new review saved");
+    // console.log("new Review saved");
+    // res.send("new review saved");
     
     res.redirect(`/listings/${listing._id}`)
-})
+}))
 
 // app.get("/listings",(req,res)=>{
 //     Listing.find({}).then((res)=>{
