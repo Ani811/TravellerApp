@@ -53,3 +53,21 @@ router.use((req, res, next) => {
 router.get('/events', (req, res, next) => {
   // ..
 })
+
+------------------------Day49---------------------
+What is state?
+
+Stateful Protocol required server to save the status and qsession information
+
+eg:ftp
+
+Stateless Protocol
+Stateless protocol does not require to server to ratain server information
+or status
+
+eg: http 
+
+
+05.connect-flash
+the flash is a special area of the session used for stroing
+messages.Messages are written to the flash and cleared after being displayed to the user

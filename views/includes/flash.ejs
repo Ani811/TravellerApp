@@ -1,0 +1,33 @@
+<%  if(success && success.length>0)  { %>
+<div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+    <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>
+
+<script>
+  // Auto dismiss alerts after 3 seconds
+  setTimeout(() => {
+    document.querySelectorAll('.alert').forEach(alert => {
+      alert.classList.remove('show');
+      setTimeout(() => alert.remove(), 500);
+    });
+  }, 1000);
+</script>
+
+<%  if(error && error.length>0)  { %>
+<div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
+    <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>
+
+<script>
+  // Auto dismiss alerts after 3 seconds
+  setTimeout(() => {
+    document.querySelectorAll('.alert').forEach(alert => {
+      alert.classList.remove('show');
+      setTimeout(() => alert.remove(), 500);
+    });
+  }, 3000);
+</script>
