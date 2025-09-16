@@ -71,3 +71,39 @@ eg: http
 05.connect-flash
 the flash is a special area of the session used for stroing
 messages.Messages are written to the flash and cleared after being displayed to the user
+
+
+------------------Day50-----------------
+
+----------01-----
+Authentication:Authentication is the process of verifying who someone is
+
+Authorization:Authorization is the process of verifying what specific 
+applications,files,and data a user has access to
+
+---------03--------------------------
+Hashing:
+What we need know
+
+1.For every input is a fixed output
+2.they are ine way functions,we can not get input from output
+3.For a different input,there is a different output but of same length
+4.Small changes in input should bring large changes in output
+
+--------04-------------
+Salting:
+Password salting is a technique to protect passwords stored '
+in databases by adding a string of 32 or more charecters and then hasing them.
+
+--------------------07-----------------
+Configuring Strategy:
+passport.initialize()
+
+A middleware that initializes passport.
+
+passport.session()
+->A web application needs the ability to indentify users
+as they browse from page to page.
+This series of requiests and responses,each associated with the same user,is known as a session
+
+passport.use(new LocalStrategy(User.authenticate()))
