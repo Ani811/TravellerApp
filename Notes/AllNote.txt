@@ -1,0 +1,116 @@
+-------------05.Index Route---------------------
+
+GET/listings -->All listings
+
+GET/listings/:id -->specific listing data(for view)
+
+------------------08.Update(Edit & Update)--------------
+GET     /listings/:id/edit->edit form->submit
+POST    /listings/:id
+
+----------------Day47-------------------------
+Handling Deletion
+using Mongoose Middleware
+
+We can use 2 middleware:
+=>Pre-run before the query is executed
+=>Post-run after the query is executed
+
+customerSchema.post("findOneAndDelete",async(customer)=>{
+    if(customer.orders.length){
+        let res=await Order.deleteMany({_id:{$in:customer.orders}});
+        console.log(res);
+    }
+})
+
+--------------------Day48---------------------
+Express Router:
+    Express Routers are a way to organize your Express application such that our
+    primary app.js file does not become bloated.
+
+const router=express.Router()   //create new router object
+
+//From documentations
+
+
+Router
+A router object is an instance of middleware and routes. You can think of it as a “mini-application,” capable only of performing middleware and routing functions. Every Express application has a built-in app router.
+
+A router behaves like middleware itself, so you can use it as an argument to app.use() or as the argument to another router’s use() method.
+
+The top-level express object has a Router() method that creates a new router object.
+
+Once you’ve created a router object, you can add middleware and HTTP method routes (such as get, put, post, and so on) to it just like an application. For example:
+
+// invoked for any requests passed to this router
+router.use((req, res, next) => {
+  // .. some logic here .. like any other middleware
+  next()
+})
+
+// will handle any request that ends in /events
+// depends on where the router is "use()'d"
+router.get('/events', (req, res, next) => {
+  // ..
+})
+
+------------------------Day49---------------------
+What is state?
+
+Stateful Protocol required server to save the status and qsession information
+
+eg:ftp
+
+Stateless Protocol
+Stateless protocol does not require to server to ratain server information
+or status
+
+eg: http 
+
+
+05.connect-flash
+the flash is a special area of the session used for stroing
+messages.Messages are written to the flash and cleared after being displayed to the user
+
+
+------------------Day50-----------------
+
+----------01-----
+Authentication:Authentication is the process of verifying who someone is
+
+Authorization:Authorization is the process of verifying what specific 
+applications,files,and data a user has access to
+
+---------03--------------------------
+Hashing:
+What we need know
+
+1.For every input is a fixed output
+2.they are ine way functions,we can not get input from output
+3.For a different input,there is a different output but of same length
+4.Small changes in input should bring large changes in output
+
+--------04-------------
+Salting:
+Password salting is a technique to protect passwords stored '
+in databases by adding a string of 32 or more charecters and then hasing them.
+
+--------------------07-----------------
+Configuring Strategy:
+passport.initialize()
+
+A middleware that initializes passport.
+
+passport.session()
+->A web application needs the ability to indentify users
+as they browse from page to page.
+This series of requiests and responses,each associated with the same user,is known as a session
+
+passport.use(new LocalStrategy(User.authenticate()))
+
+---------------------Day51--------------
+-------------01--------------------
+Connecting login router:
+  How to check if yhe logged in?
+
+req.isAuthenticate() //its is a passport method

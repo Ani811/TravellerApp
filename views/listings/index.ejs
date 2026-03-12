@@ -1,0 +1,99 @@
+<% layout("/layouts/boilerplate") %> 
+
+<div id="filters">
+    <div class="filter">
+        <div><i class="fa-solid fa-fire" style="color: #fe424d"></i></div>
+        <p>Trending</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-bed" style="color: #fe424d"></i></div>
+        <p>Rooms</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-mountain-city" style="color: #fe424d"></i></div>
+        <p>Iconic Cities</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-mountain" style="color: #fe424d"></i></div>
+        <p>Mountain</p>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-umbrella-beach" style="color: #fe424d"></i>
+        <p>Beach</p>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-person-swimming" style="color: #fe424d"></i>
+        <p>Amazing Pools</p>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-shuttle-space" style="color: #fe424d"></i>
+        <p>OMG!</p>
+    </div>
+    <div class="filter">
+        <i class="fa-brands fa-fort-awesome" style="color: #fe424d"></i>
+        <p>Castles</p>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-tree" style="color: #fe424d"></i>
+        <p>Treehouses</p>
+    </div>
+    <div class="filter">
+        <i class="fa-brands fa-canadian-maple-leaf" style="color: #fe424d"></i>
+        <p>National Parks</p>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-umbrella-beach" style="color: #fe424d"></i>
+        <p>Islands</p>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-caret-up" style="color: #fe424d"></i>
+         <p>Caves</p>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-sailboat" style="color: #fe424d"></i>
+        <p>Boats</p>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-ferry" style="color: #fe424d"></i>
+        <p>Houseboats</p>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-tower-cell" style="color: #fe424d"></i>
+        <p>Towers</p>
+    </div>
+    <!-- <div class="tax-toggle">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            <label class="form-check-label" for="switchCheckDefault">Default switch checkbox input</label>
+        </div>
+    </div> -->
+    
+   
+
+
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+    <% for(let listing of allListings) { %>
+    <a href="/listings/<%= listing._id %>" class="listing-link">
+        <div class="card col listing-card" >
+        <img 
+            class="card-img-top" 
+            src="<%= listing.image.url %>" 
+            alt="listing_image" 
+            style="height: 20rem; object-fit: cover;"
+        />
+        <div class="card-img-overlay"></div>
+        <div class="card-body">
+        <p class="card-text">
+        <b><%= listing.title %> <br></b>
+        &#8377;<%= listing.price %>/<%= listing.duration %> Days
+        </p>
+        </div>
+        </div>
+    </a>
+    
+<% } %>
+</div>
+
+
