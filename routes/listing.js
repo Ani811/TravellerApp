@@ -39,6 +39,10 @@ router
 //new route
 router.get("/new",isLoggedIn,listingController.renderNewForm)
 
+// PayPal endpoints for creating and capturing orders
+router.post("/:id/create-paypal-order", wrapAsync(listingController.createPayPalOrder));
+router.post("/:id/capture-paypal-order", wrapAsync(listingController.capturePayPalOrder));
+
 
     
 router.route("/:id")
