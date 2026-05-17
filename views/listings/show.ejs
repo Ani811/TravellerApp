@@ -1,151 +1,345 @@
 <% layout("/layouts/boilerplate") %>
 
 <style>
+.page-container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 2rem;
+    color: #212529;
+}
+.listing-hero {
+    display: grid;
+    grid-template-columns: 1.25fr 0.95fr;
+    gap: 1.5rem;
+    align-items: stretch;
+}
+.listing-card {
+    border: none;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(32, 40, 52, 0.08);
+}
+.listing-banner {
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+}
+.listing-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 .offer-badge {
     position: absolute;
-    top: 16px;
-    left: 16px;
-    z-index: 10;
-    padding: 0.5rem 0.85rem;
-    border-radius: 0.35rem;
-    background: rgba(220,53,69,0.95);
+    top: 1rem;
+    left: 1rem;
+    padding: 0.7rem 1rem;
+    border-radius: 0.85rem;
+    background: #d6334f;
     color: #fff;
     font-weight: 700;
+    letter-spacing: 0.02em;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+}
+.listing-body {
+    padding: 2rem;
+}
+.listing-title {
+    margin-bottom: 0.5rem;
+    font-size: clamp(1.8rem, 2vw, 2.4rem);
+    font-weight: 700;
+}
+.listing-subtitle {
+    color: #495057;
+    margin-bottom: 1.25rem;
+}
+.listing-description {
+    line-height: 1.8;
+    color: #495057;
+    margin-bottom: 1.5rem;
+}
+.listing-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+.meta-item {
+    background: #f8f9fa;
+    border-radius: 1rem;
+    padding: 1rem 1.15rem;
+}
+.meta-item strong {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: #323d52;
+}
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+.tag-pill {
+    background: #edf2ff;
+    color: #1864ab;
+    border-radius: 999px;
+    padding: 0.55rem 0.95rem;
+    font-size: 0.92rem;
+}
+.booking-panel {
+    background: #f8f9fa;
+    border-radius: 1.25rem;
+    padding: 1.6rem;
+    border: 1px solid #e9ecef;
+}
+.booking-panel h5 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
 }
 .duration-controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    margin-bottom: 1.3rem;
 }
 .duration-controls button {
-    min-width: 45px;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 0.85rem;
+    border: 1px solid #ced4da;
+    background: #fff;
+    color: #212529;
+    font-size: 1.25rem;
 }
-.booking-box {
+.duration-controls input {
+    width: 5rem;
+    text-align: center;
+    border-radius: 0.85rem;
+    border: 1px solid #ced4da;
+    padding: 0.75rem 0.5rem;
+}
+.booking-total {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1.4rem;
+}
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: #495057;
+    font-weight: 600;
+}
+.total-row strong {
+    color: #212529;
+}
+.btn-primary-custom,
+.btn-secondary-custom {
+    border-radius: 0.85rem;
+    padding: 0.95rem 1.5rem;
+    font-weight: 700;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+.btn-primary-custom {
+    background: #1c7ed6;
+    color: #fff;
+    border: none;
+}
+.btn-primary-custom:hover {
+    background: #1864ab;
+    transform: translateY(-1px);
+}
+.btn-secondary-custom {
+    background: #ffffff;
+    border: 1px solid #ced4da;
+    color: #212529;
+}
+.actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    justify-content: center;
+    margin: 2rem 0 1.5rem;
+}
+.review-section {
+    margin-top: 2rem;
+}
+.review-form,
+.review-list {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    padding: 1.6rem;
+    box-shadow: 0 20px 60px rgba(32, 40, 52, 0.06);
+}
+.review-form h4 {
+    margin-bottom: 1rem;
+}
+.review-item {
+    border-radius: 1rem;
     background: #f8f9fa;
-    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.review-item:last-child { margin-bottom: 0; }
+.map-card {
+    margin-top: 1.75rem;
+    border-radius: 1.25rem;
+    background: #ffffff;
+    padding: 1.5rem;
+    box-shadow: 0 20px 60px rgba(32, 40, 52, 0.06);
+}
+#map {
+    width: 100%;
+    min-height: 260px;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+@media (max-width: 860px) {
+    .listing-hero,
+    .listing-meta {
+        grid-template-columns: 1fr;
+    }
+    .actions-row {
+        justify-content: stretch;
+    }
 }
 </style>
 
-<div>
-    <div class="row mt-3">
-        <div class="col-8 offset-2">
-            <h3><%= listing.title %></h3>
-        </div>
-        <div class="card col-6 offset-3 show-card listing-card position-relative">
-            <img 
-                src="<%= listing.image.url %>" 
-                class="card-img-top show_image" 
-                alt="listing_image"
-            />
-            <div class="offer-badge">
-                <% if (listing.offer && listing.offer > 0) { %>
-                    <%= listing.offer %>% OFF
-                <% } else { %>
-                    No Offer
-                <% } %>
-            </div>
-            <div class="card-body">
-                <p class="card-text">Owned by <i><%= listing.owner.username %></i></p>
-                <p class="card-text"><%= listing.description %></p>
-                <p class="card-text"><strong>Per day:</strong> &#8377; <%= listing.price %></p>
-                <p class="card-text"><strong>Location:</strong> <%= listing.location %>, <%= listing.country %></p>
-                <div class="booking-box p-3 mt-3">
-                    <h5>Book your stay</h5>
-                    <div class="duration-controls mb-3">
-                        <button id="decreaseDuration" class="btn btn-outline-dark btn-sm" type="button">-</button>
-                        <div>
-                            <label class="form-label mb-1">Duration (days)</label>
-                            <input id="durationInput" type="number" min="1" class="form-control" style="width:110px;" value="<%= listing.duration %>" />
-                        </div>
-                        <button id="increaseDuration" class="btn btn-outline-dark btn-sm" type="button">+</button>
-                    </div>
-                    <p class="mb-2"><strong>Original total:</strong> &#8377; <span id="originalTotal"></span></p>
-                    <p class="mb-2"><strong>Offer:</strong> <span id="offerPercent"><%= listing.offer || 0 %></span>%</p>
-                    <p class="mb-2"><strong>Total after offer:</strong> &#8377; <span id="discountedTotal"></span></p>
-                    <button id="bookButton" type="button" class="btn btn-dark">Book Now</button>
+<div class="page-container">
+    <div class="listing-hero">
+        <article class="listing-card">
+            <div class="listing-banner">
+                <img
+                    src="<%= listing.image.url %>"
+                    class="listing-image"
+                    alt="listing_image"
+                />
+                <div class="offer-badge">
+                    <% if (listing.offer && listing.offer > 0) { %>
+                        <%= listing.offer %>% OFF
+                    <% } else { %>
+                        No Offer
+                    <% } %>
                 </div>
             </div>
-        </div>
-        <br/>
+            <div class="listing-body">
+                <h1 class="listing-title"><%= listing.title %></h1>
+                <p class="listing-subtitle">Owned by <strong><%= listing.owner.username %></strong></p>
+                <p class="listing-description"><%= listing.description %></p>
+
+                <div class="listing-meta">
+                    <div class="meta-item">
+                        <strong>Per day</strong>
+                        ₹ <%= listing.price %>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Duration</strong>
+                        <%= listing.duration %> days
+                    </div>
+                    <div class="meta-item">
+                        <strong>Location</strong>
+                        <%= listing.location %>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Country</strong>
+                        <%= listing.country %>
+                    </div>
+                </div>
+
+                <div class="booking-panel">
+                    <h5>Book your stay</h5>
+                    <div class="duration-controls">
+                        <button id="decreaseDuration" class="btn-secondary-custom" type="button">-</button>
+                        <input id="durationInput" type="number" min="1" value="<%= listing.duration %>" />
+                        <button id="increaseDuration" class="btn-secondary-custom" type="button">+</button>
+                    </div>
+                    <div class="booking-total">
+                        <div class="total-row"><span>Original total</span><strong>₹ <span id="originalTotal"></span></strong></div>
+                        <div class="total-row"><span>Offer</span><strong><span id="offerPercent"><%= listing.offer || 0 %></span>%</strong></div>
+                        <div class="total-row"><span>Total after offer</span><strong>₹ <span id="discountedTotal"></span></strong></div>
+                    </div>
+                    <button id="bookButton" type="button" class="btn-primary-custom">Book Now</button>
+                </div>
+            </div>
+        </article>
     </div>
 
-
-    <div class="btns mt-3 text-center">
-        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark me-2">Edit</a>
+    <div class="actions-row">
+        <a href="/listings/<%= listing._id %>/edit" class="btn-secondary-custom">Edit Listing</a>
         <form class="d-inline" method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-            <button class="btn btn-dark">Delete</button>
+            <button class="btn-secondary-custom" type="submit">Delete Listing</button>
         </form>
     </div>
 
+    <section class="review-section">
+        <div class="review-form">
+            <h4>Leave a review</h4>
+            <form
+                action="/listings/<%= listing.id %>/reviews"
+                method="POST"
+                novalidate
+                class="needs-validation"
+            >
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <fieldset class="starability-slot">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                </div>
 
-
-    <div class="col-8 offset-3 mb-3">
-        
-        <h4>Leave a review</h4>
-        <form 
-            action="/listings/<%= listing.id %>/reviews" 
-            method="POST"
-            novalidate  
-            class="needs-validation" 
-            
-        >
-            
-            <div class="mb-3 mt-3">
-                <label for="rating" class="form-label">Rating</label>
-            <fieldset class="starability-slot">
-                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-                <label for="first-rate1" title="Terrible">1 star</label>
-                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-                <label for="first-rate2" title="Not good">2 stars</label>
-                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-                <label for="first-rate3" title="Average">3 stars</label>
-                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-                <label for="first-rate4" title="Very good">4 stars</label>
-                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-                <label for="first-rate5" title="Amazing">5 stars</label>
-            </fieldset>
-            </div>
-
-
-            <div class="mb-3 mt-3">
-                <label for="comment" class="form-label">Comments</label>
-                <textarea 
-                    name="review[comment]" 
-                    id="comment" 
-                    cols="10" 
-                    rows="2" 
-                    class="form-control" 
-                    required
-                ></textarea> 
-            </div>
-            <button class="btn btn-outline-dark">Submit</button>
-        </form>
-        <hr>
-        <% if(listing.reviews.length>0){ %>
-        <div class="row">
-            <p><b>All Reviews</b></p>
-            <%for(review of listing.reviews){%>
-                <div class="card col-5 ms-3 mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">demo0</h5>
-                <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
-                <p class="card-text"><%= review.comment %></p>
-
-            </div>
-            <form class="mb-3" method="POST" action="/listings/<%=listing._id %>/reviews/<%=review._id %>?_method=DELETE">
-                <button class="btn btn-sm btn-dark">Delete</button>
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Comments</label>
+                    <textarea
+                        name="review[comment]"
+                        id="comment"
+                        cols="10"
+                        rows="3"
+                        class="form-control"
+                        required
+                    ></textarea>
+                </div>
+                <button class="btn-primary-custom" type="submit">Submit Review</button>
             </form>
         </div>
+
+        <% if(listing.reviews.length>0){ %>
+            <div class="review-list mt-4">
+                <h4>All Reviews</h4>
+                <% for(review of listing.reviews){ %>
+                    <div class="review-item">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fw-bold">Review</span>
+                        </div>
+                        <p class="starability-result" data-rating="<%= review.rating %>"></p>
+                        <p class="mb-1"><%= review.comment %></p>
+                        <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                            <button class="btn-secondary-custom" type="submit">Delete</button>
+                        </form>
+                    </div>
+                <% } %>
+            </div>
         <% } %>
-        </div>
-        <%} %>
+    </section>
+
+    <div class="map-card">
+        <h4>Where you'll be staying</h4>
+        <div id="map"></div>
     </div>
-    <div class="col-8 offset-3 mb-3">
-            <h3>Where you'll be staying</h3>
-            <div id="map"></div>
-    </div>
-</div> 
+</div>
 
 <div id="listing-data" data-price="<%= listing.price || 0 %>" data-offer="<%= listing.offer || 0 %>" data-map-token="<%= process.env.MAP_TOKEN || '' %>" style="display:none;"></div>
 
