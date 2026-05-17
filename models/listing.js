@@ -18,6 +18,10 @@ const listingSchema=new Schema({
         type:Number,
         default:3
     },
+    offer:{
+        type:Number,
+        default:0
+    },
     location:String,
     country:String,
     reviews:[

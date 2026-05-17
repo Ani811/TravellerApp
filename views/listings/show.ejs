@@ -1,36 +1,79 @@
 <% layout("/layouts/boilerplate") %>
 
-<div>   
+<style>
+.offer-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 10;
+    padding: 0.5rem 0.85rem;
+    border-radius: 0.35rem;
+    background: rgba(220,53,69,0.95);
+    color: #fff;
+    font-weight: 700;
+}
+.duration-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.duration-controls button {
+    min-width: 45px;
+}
+.booking-box {
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+}
+</style>
+
+<div>
     <div class="row mt-3">
-        <div class="col-8 offset-3">
-            <h3><%=listing.title%></h3>
+        <div class="col-8 offset-2">
+            <h3><%= listing.title %></h3>
         </div>
-        <div class="card col-6 offset-3 show-card listing-card">
+        <div class="card col-6 offset-3 show-card listing-card position-relative">
             <img 
-                src="<%=listing.image.url%>" 
+                src="<%= listing.image.url %>" 
                 class="card-img-top show_image" 
                 alt="listing_image"
             />
-
+            <div class="offer-badge">
+                <% if (listing.offer && listing.offer > 0) { %>
+                    <%= listing.offer %>% OFF
+                <% } else { %>
+                    No Offer
+                <% } %>
+            </div>
             <div class="card-body">
                 <p class="card-text">Owned by <i><%= listing.owner.username %></i></p>
-                    <p class="card-text"><%=listing.description%></p>
-                    <p class="card-text">&#8377; <%=listing.price%></p>
-                    <p class="card-text"><%=listing.duration%> Days </p>
-                    <p class="card-text"><%=listing.location%></p>
-                    <p class="card-text"><%=listing.country%></p>
+                <p class="card-text"><%= listing.description %></p>
+                <p class="card-text"><strong>Per day:</strong> &#8377; <%= listing.price %></p>
+                <p class="card-text"><strong>Location:</strong> <%= listing.location %>, <%= listing.country %></p>
+                <div class="booking-box p-3 mt-3">
+                    <h5>Book your stay</h5>
+                    <div class="duration-controls mb-3">
+                        <button id="decreaseDuration" class="btn btn-outline-dark btn-sm" type="button">-</button>
+                        <div>
+                            <label class="form-label mb-1">Duration (days)</label>
+                            <input id="durationInput" type="number" min="1" class="form-control" style="width:110px;" value="<%= listing.duration %>" />
+                        </div>
+                        <button id="increaseDuration" class="btn btn-outline-dark btn-sm" type="button">+</button>
+                    </div>
+                    <p class="mb-2"><strong>Original total:</strong> &#8377; <span id="originalTotal"></span></p>
+                    <p class="mb-2"><strong>Offer:</strong> <span id="offerPercent"><%= listing.offer || 0 %></span>%</p>
+                    <p class="mb-2"><strong>Total after offer:</strong> &#8377; <span id="discountedTotal"></span></p>
+                    <button id="bookButton" type="button" class="btn btn-dark">Book Now</button>
+                </div>
             </div>
         </div>
         <br/>
     </div>
 
 
-    <div class="btns">
-        <a href="/listings/<%= listing._id %>/edit" 
-        class="btn btn-dark col-1 offset-5 edit-btn">
-        Edit</a>
-        <form method="POST" action="/listings/<%=listing._id %>?_method=DELETE">
-            <button class="btn btn-dark offset-5">Delete</button>
+    <div class="btns mt-3 text-center">
+        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark me-2">Edit</a>
+        <form class="d-inline" method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+            <button class="btn btn-dark">Delete</button>
         </form>
     </div>
 
@@ -104,13 +147,59 @@
     </div>
 </div> 
 
+<div id="listing-data" data-price="<%= listing.price || 0 %>" data-offer="<%= listing.offer || 0 %>" data-map-token="<%= process.env.MAP_TOKEN || '' %>" style="display:none;"></div>
+
 <script>
-    let mapToken="<%= process.env.MAP_TOKEN %>";
-    console.log(mapToken);
+    const listingDataEl = document.getElementById('listing-data');
+    const listingData = {
+        price: Number(listingDataEl.dataset.price || 0),
+        offer: Number(listingDataEl.dataset.offer || 0)
+    };
+    const basePrice = listingData.price;
+    const offerPercent = listingData.offer;
+    const durationInput = document.getElementById('durationInput');
+    const originalTotalEl = document.getElementById('originalTotal');
+    const discountedTotalEl = document.getElementById('discountedTotal');
+    const offerPercentEl = document.getElementById('offerPercent');
+    const decreaseButton = document.getElementById('decreaseDuration');
+    const increaseButton = document.getElementById('increaseDuration');
+    const bookButton = document.getElementById('bookButton');
+
+    const formatRupee = (value) => Math.round(value).toLocaleString('en-IN');
+
+    const updateTotals = () => {
+        let days = Number(durationInput.value) || 1;
+        if (days < 1) days = 1;
+        durationInput.value = days;
+        const originalTotal = basePrice * days;
+        const discountedTotal = Math.round(originalTotal * (1 - offerPercent / 100));
+        originalTotalEl.textContent = formatRupee(originalTotal);
+        discountedTotalEl.textContent = formatRupee(discountedTotal);
+        offerPercentEl.textContent = offerPercent;
+    };
+
+    decreaseButton.addEventListener('click', () => {
+        durationInput.value = Math.max(1, Number(durationInput.value) - 1);
+        updateTotals();
+    });
+    increaseButton.addEventListener('click', () => {
+        durationInput.value = Number(durationInput.value) + 1;
+        updateTotals();
+    });
+    durationInput.addEventListener('input', () => updateTotals());
+    bookButton.addEventListener('click', () => {
+        const days = Number(durationInput.value) || 1;
+        const total = Math.round(basePrice * days * (1 - offerPercent / 100));
+        alert(`Booking for ${days} day(s)\nTotal payable: ₹${formatRupee(total)}`);
+    });
+
+    updateTotals();
+
+    const mapToken = listingDataEl.dataset.mapToken || '';
     mapboxgl.accessToken = mapToken;
     const map = new mapboxgl.Map({
-        container: 'map', // container ID
-        center: [88.363892, 22.572645], // starting position [lng, lat]. Note that lat must be set between -90 and 90
-        zoom: 9 // starting zoom
+        container: 'map',
+        center: [88.363892, 22.572645],
+        zoom: 9
     });
 </script>

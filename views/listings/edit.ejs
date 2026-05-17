@@ -34,11 +34,15 @@
         </div>
 
         <div class="row">
-            <div class="mb-3 col-md-4">
+            <div class="mb-3 col-md-3">
                 <label for="price" class="form-label">Price</label> 
-                <input name="listing[price]" value="<%= listing.price %>" type="number" class="form-control" required/>
+                <input name="listing[price]" value="<%= listing.price %>" type="number" class="form-control" min="0" required/>
             </div>
-            <div class="mb-3 col-md-8">
+            <div class="mb-3 col-md-3">
+                <label for="offer" class="form-label">Offer (%)</label>
+                <input name="listing[offer]" value="<%= listing.offer || 0 %>" type="number" class="form-control" min="0" max="100" />
+            </div>
+            <div class="mb-3 col-md-6">
                 <label for="country" class="form-label">Country</label>
                 <input name="listing[country]" value="<%= listing.country %>" type="text" class="form-control"/>
             </div>
