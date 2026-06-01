@@ -18,8 +18,11 @@ module.exports.index=async (req, res) => {
     const search = req.query.search?.trim();
     let allListings;
     if (search) {
-        const searchRegex = new RegExp(escapeRegex(search), "i");
-        allListings = await Listing.find({ title: searchRegex });
+        // Use MongoDB text index search and sort by relevance score
+        allListings = await Listing.find(
+            { $text: { $search: search } },
+            { score: { $meta: "textScore" } }
+        ).sort({ score: { $meta: "textScore" } });
     } else {
         allListings = await Listing.find({});
     }
@@ -111,8 +114,9 @@ module.exports.createPayPalOrder = async (req, res) => {
         const order = await client.execute(request);
         return res.json({ id: order.result.id });
     } catch (e) {
-        console.error(e);
-        return res.status(500).json({ error: 'Failed to create PayPal order' });
+        console.error('PayPal create order error:', e);
+        const message = e?.message || (e?.result && JSON.stringify(e.result)) || 'Failed to create PayPal order';
+        return res.status(500).json({ error: message });
     }
 };
 
@@ -126,7 +130,8 @@ module.exports.capturePayPalOrder = async (req, res) => {
         const capture = await client.execute(request);
         return res.json({ status: 'COMPLETED', details: capture.result });
     } catch (e) {
-        console.error(e);
-        return res.status(500).json({ error: 'Failed to capture PayPal order' });
+        console.error('PayPal capture error:', e);
+        const message = e?.message || (e?.result && JSON.stringify(e.result)) || 'Failed to capture PayPal order';
+        return res.status(500).json({ error: message });
     }
 };

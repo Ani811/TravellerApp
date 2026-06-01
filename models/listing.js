@@ -36,6 +36,9 @@ const listingSchema=new Schema({
     },
 })
 
+// Create a text index for full-text search on title, description and location
+listingSchema.index({ title: 'text', description: 'text', location: 'text' });
+
 listingSchema.post("findOneAndDelete",async(listing)=>{
     if(listing){
         await Review.deleteMany({_id:{$in: listing.reviews}})
