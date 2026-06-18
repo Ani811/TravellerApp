@@ -25,16 +25,15 @@
     display: grid;
     grid-template-columns: 1.8fr 0.9fr;
     gap: 0.8rem;
-    height: 240px;
-    max-height: 260px;
+    min-height: 240px;
     align-items: stretch;
 }
 .main-photo {
     border-radius: 1rem;
     overflow: hidden;
     position: relative;
-    height: 240px;
-    max-height: 260px;
+    height: 100%;
+    min-height: 240px;
     background: #f0f0f0;
 }
 .main-photo .listing-image {
@@ -46,10 +45,10 @@
 .thumbs-grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, minmax(0, 1fr));
     gap: 0.6rem;
-    height: 240px;
-    max-height: 260px;
+    height: 100%;
+    min-height: 240px;
 }
 .show-all {
     position: absolute;
