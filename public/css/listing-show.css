@@ -25,8 +25,8 @@
     display: grid;
     grid-template-columns: 1.8fr 0.9fr;
     gap: 0.8rem;
-    height: 240px;
-    max-height: 260px;
+    height: 140px;
+    max-height: 160px;
     align-items: stretch;
 }
 .main-photo {
