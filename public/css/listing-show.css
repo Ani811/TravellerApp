@@ -30,7 +30,7 @@
 .main-photo {
     border-radius: 1rem;
     overflow: hidden;
-    min-height: 280px;
+    min-height: 80px;
 }
 .main-photo .listing-image {
     width: 100%;
