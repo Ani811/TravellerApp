@@ -7,6 +7,7 @@
                 <div class="photo-grid">
                     <div class="main-photo">
                         <img src="<%= listing.image.url %>" class="listing-image" alt="listing_image" id="mainPhoto" />
+                        <button type="button" class="show-all">Show all photos</button>
                     </div>
                     <div class="thumbs-grid">
                         <% 
@@ -26,7 +27,6 @@
                             </button>
                         <% }) %>
                         </div>
-                        <button type="button" class="show-all">Show all photos</button>
                     </div>
                     <div class="offer-badge">
                         <% if (listing.offer && listing.offer > 0) { %>

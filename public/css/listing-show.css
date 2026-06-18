@@ -23,7 +23,7 @@
 }
 .photo-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1.8fr 0.9fr;
     gap: 0.8rem;
     align-items: stretch;
 }
@@ -31,7 +31,8 @@
     border-radius: 1rem;
     overflow: hidden;
     position: relative;
-    aspect-ratio: 4 / 3;
+    height: 240px;
+    max-height: 260px;
     background: #f0f0f0;
 }
 .main-photo .listing-image {
@@ -43,7 +44,7 @@
 .thumbs-grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, 1fr);
     gap: 0.6rem;
     height: 100%;
 }
@@ -58,24 +59,25 @@
     bottom: 0.75rem;
     right: 0.75rem;
     margin-top: 0;
-    padding: 0.5rem 0.8rem;
-    border-radius: 0.6rem;
-    background: rgba(255,255,255,0.9);
-    border: 1px solid rgba(0,0,0,0.1);
-    font-weight: 500;
-    font-size: 0.8rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 0.75rem;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(0,0,0,0.08);
+    font-weight: 600;
+    font-size: 0.825rem;
     cursor: pointer;
-    transition: background 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: background 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 .show-all:hover {
     background: rgba(255,255,255,1);
+    transform: translateY(-1px);
 }
 .thumb-btn {
     border: none;
     padding: 0;
     background: transparent;
-    border-radius: 0.6rem;
+    border-radius: 0.8rem;
     overflow: hidden;
     cursor: pointer;
     aspect-ratio: 1;
@@ -86,6 +88,7 @@
     object-fit: cover;
     display: block;
 }
+.offer-badge {
     position: absolute;
     top: 1rem;
     left: 1rem;
