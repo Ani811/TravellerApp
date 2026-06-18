@@ -13,9 +13,9 @@
                         <% 
                             let thumbs = [];
                             if (listing.images && listing.images.length) {
-                                thumbs = listing.images.slice(0,4).map(i => i.url);
+                                thumbs = listing.images.slice(0,2).map(i => i.url);
                             } else {
-                                for (let i=0;i<4;i++) thumbs.push(listing.image.url);
+                                for (let i=0;i<2;i++) thumbs.push(listing.image.url);
                             }
                         %>
                         <% thumbs.forEach(function(t, idx){
