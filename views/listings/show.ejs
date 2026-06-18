@@ -1,284 +1,40 @@
 <% layout("/layouts/boilerplate") %>
 
-<style>
-.page-container {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 1.5rem 1rem 2rem;
-    color: #212529;
-}
-.listing-hero {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    align-items: stretch;
-}
-.listing-card {
-    border: none;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    background: #ffffff;
-    box-shadow: 0 20px 60px rgba(32, 40, 52, 0.08);
-    width: 100%;
-}
-.listing-banner {
-    position: relative;
-    overflow: hidden;
-    min-height: 320px;
-}
-.listing-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-.offer-badge {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    padding: 0.7rem 1rem;
-    border-radius: 0.85rem;
-    background: #d6334f;
-    color: #fff;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
-}
-.listing-body {
-    padding: 2rem;
-}
-.listing-title {
-    margin-bottom: 0.5rem;
-    font-size: clamp(1.8rem, 2.5vw, 2.6rem);
-    font-weight: 700;
-}
-.listing-subtitle {
-    color: #495057;
-    margin-bottom: 1rem;
-}
-.listing-description {
-    line-height: 1.8;
-    color: #495057;
-    margin-bottom: 1.5rem;
-}
-.listing-meta {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    margin-bottom: 1.75rem;
-}
-.meta-item {
-    background: #f8f9fa;
-    border-radius: 1rem;
-    padding: 1rem 1.15rem;
-}
-.meta-item strong {
-    display: block;
-    margin-bottom: 0.35rem;
-    color: #323d52;
-}
-.booking-panel {
-    background: #f8f9fa;
-    border-radius: 1.25rem;
-    padding: 1.6rem;
-    border: 1px solid #e9ecef;
-}
-.booking-panel h5 {
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    letter-spacing: 0.01em;
-}
-.duration-controls {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.75rem;
-    margin-bottom: 1.3rem;
-    flex-wrap: wrap;
-}
-.duration-controls button {
-    min-width: 44px;
-    min-height: 44px;
-    border-radius: 0.85rem;
-    border: 1px solid #ced4da;
-    background: #fff;
-    color: #212529;
-    font-size: 1.25rem;
-}
-.duration-controls input {
-    width: 5rem;
-    max-width: 100%;
-    text-align: center;
-    border-radius: 0.85rem;
-    border: 1px solid #ced4da;
-    padding: 0.75rem 0.5rem;
-}
-.booking-total {
-    display: grid;
-    gap: 0.75rem;
-    margin-bottom: 1.4rem;
-}
-.total-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    color: #495057;
-    font-weight: 600;
-}
-.total-row strong {
-    color: #212529;
-}
-.btn-primary-custom,
-.btn-secondary-custom {
-    border-radius: 0.85rem;
-    padding: 0.95rem 1.5rem;
-    font-weight: 700;
-    transition: transform 0.2s ease, background 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-}
-.btn-primary-custom {
-    background: #1c7ed6;
-    color: #fff;
-    border: none;
-}
-.btn-primary-custom:hover {
-    background: #1864ab;
-    transform: translateY(-1px);
-}
-.btn-secondary-custom {
-    background: #ffffff;
-    border: 1px solid #ced4da;
-    color: #212529;
-}
-.actions-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-    justify-content: flex-start;
-    margin: 2rem 0 1.5rem;
-}
-.review-section {
-    margin-top: 2rem;
-}
-.review-form,
-.review-list {
-    background: #ffffff;
-    border-radius: 1.25rem;
-    padding: 1.6rem;
-    box-shadow: 0 20px 60px rgba(32, 40, 52, 0.06);
-}
-.review-form h4 {
-    margin-bottom: 1rem;
-}
-.review-item {
-    border-radius: 1rem;
-    background: #f8f9fa;
-    padding: 1rem;
-    margin-bottom: 1rem;
-}
-.review-item:last-child { margin-bottom: 0; }
-.map-card {
-    margin-top: 1.75rem;
-    border-radius: 1.25rem;
-    background: #ffffff;
-    padding: 1.5rem;
-    box-shadow: 0 20px 60px rgba(32, 40, 52, 0.06);
-}
-#map {
-    width: 100%;
-    min-height: 260px;
-    border-radius: 1rem;
-    overflow: hidden;
-}
-@media (max-width: 960px) {
-    .listing-meta {
-        grid-template-columns: 1fr;
-    }
-    .actions-row {
-        justify-content: stretch;
-    }
-}
-@media (max-width: 720px) {
-    .page-container {
-        padding: 1.2rem 0.85rem 1.5rem;
-    }
-    .listing-body {
-        padding: 1.5rem;
-    }
-    .listing-title {
-        font-size: 2rem;
-    }
-    .duration-controls {
-        gap: 0.5rem;
-    }
-    .duration-controls button,
-    .duration-controls input {
-        min-width: 3.4rem;
-        min-height: 3.4rem;
-    }
-    .duration-controls input {
-        width: 100%;
-        max-width: 120px;
-    }
-    .booking-panel {
-        padding: 1.2rem;
-    }
-    .btn-primary-custom,
-    .btn-secondary-custom {
-        width: 100%;
-    }
-    .actions-row {
-        flex-direction: column;
-    }
-    .review-form,
-    .review-list,
-    .map-card {
-        padding: 1.25rem;
-    }
-}
-@media (max-width: 520px) {
-    .offer-badge {
-        top: 0.85rem;
-        left: 0.85rem;
-        padding: 0.65rem 0.85rem;
-        font-size: 0.95rem;
-    }
-    .listing-title {
-        font-size: 1.75rem;
-    }
-    .listing-description {
-        font-size: 0.98rem;
-    }
-    .meta-item {
-        padding: 0.95rem 1rem;
-    }
-    .booking-panel {
-        padding: 1rem;
-    }
-    .total-row {
-        font-size: 0.95rem;
-    }
-}
-</style>
-
-<div class="page-container">
+<link rel="stylesheet" href="/css/listing-show.css">
     <div class="listing-hero">
         <article class="listing-card">
             <div class="listing-banner">
-                <img
-                    src="<%= listing.image.url %>"
-                    class="listing-image"
-                    alt="listing_image"
-                />
-                <div class="offer-badge">
-                    <% if (listing.offer && listing.offer > 0) { %>
-                        <%= listing.offer %>% OFF
-                    <% } else { %>
-                        No Offer
-                    <% } %>
+                <div class="photo-grid">
+                    <div class="main-photo">
+                        <img src="<%= listing.image.url %>" class="listing-image" alt="listing_image" id="mainPhoto" />
+                    </div>
+                    <div class="thumbs-grid">
+                        <% 
+                            let thumbs = [];
+                            if (listing.images && listing.images.length) {
+                                thumbs = listing.images.slice(0,4).map(i => i.url);
+                            } else {
+                                for (let i=0;i<4;i++) thumbs.push(listing.image.url);
+                            }
+                        %>
+                        <div class="thumb-row">
+                        <% thumbs.forEach(function(t, idx){
+                            let thumbUrl = (t && t.includes('/upload')) ? t.replace('/upload','/upload/c_fill,h_160,w_220') : t;
+                        %>
+                            <button type="button" class="thumb-btn" data-src="<%= t %>">
+                                <img src="<%= thumbUrl %>" class="thumb-img" alt="thumb<%= idx %>" />
+                            </button>
+                        <% }) %>
+                        </div>
+                        <button type="button" class="show-all">Show all photos</button>
+                    </div>
+                    <div class="offer-badge">
+                        <% if (listing.offer && listing.offer > 0) { %>
+                            <%= listing.offer %>% OFF
+                        <% } else { %>
+                            No Offer
+                        <% } %>
+                    </div>
                 </div>
             </div>
             <div class="listing-body">
@@ -318,7 +74,7 @@
                         <div class="total-row"><span>Total after offer</span><strong>₹ <span id="discountedTotal"></span></strong></div>
                     </div>
                     <button id="bookButton" type="button" class="btn-primary-custom">Book Now</button>
-                    <div id="paypal-button-container" style="margin-top:1rem;"></div>
+                    <div id="paypal-button-container"></div>
                 </div>
             </div>
         </article>
@@ -397,7 +153,7 @@
     </div>
 </div>
 
-<div id="listing-data" data-price="<%= listing.price || 0 %>" data-offer="<%= listing.offer || 0 %>" data-map-token="<%= process.env.MAP_TOKEN || '' %>" style="display:none;"></div>
+<div id="listing-data" data-price="<%= listing.price || 0 %>" data-offer="<%= listing.offer || 0 %>" data-map-token="<%= process.env.MAP_TOKEN || '' %>"></div>
 
 <script>
     const listingDataEl = document.getElementById('listing-data');
@@ -455,7 +211,7 @@
 </script>
 <% const paypalClientId = process.env.PAYPAL_CLIENT_ID || ''; %>
 <% if (!paypalClientId) { %>
-    <div style="color:#8b0000;margin-top:0.8rem;">PayPal is not configured. Set PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET.</div>
+    <div class="paypal-warning">PayPal is not configured. Set PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET.</div>
 <% } else { %>
     <script src="https://www.paypal.com/sdk/js?client-id=<%= paypalClientId %>&currency=INR"></script>
     <script>
@@ -511,3 +267,25 @@
         }).render('#paypal-button-container');
     </script>
 <% } %>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const main = document.getElementById('mainPhoto');
+    if(!main) return;
+    document.querySelectorAll('.thumb-btn').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+            const src = btn.getAttribute('data-src');
+            if(src){
+                main.src = src;
+            }
+        });
+    });
+    const showAll = document.querySelector('.show-all');
+    if(showAll){
+        showAll.addEventListener('click', ()=>{
+            // open the main photo in a new tab (simple gallery fallback)
+            window.open(main.src, '_blank');
+        });
+    }
+});
+</script>
