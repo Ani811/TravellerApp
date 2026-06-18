@@ -23,14 +23,15 @@
 }
 .photo-grid {
     display: grid;
-    grid-template-columns: 1.8fr 1fr;
+    grid-template-columns: 1.5fr 0.8fr;
     gap: 0.8rem;
     align-items: start;
 }
 .main-photo {
     border-radius: 1rem;
     overflow: hidden;
-    min-height: 80px;
+    min-height: 220px;
+    max-height: 280px;
 }
 .main-photo .listing-image {
     width: 100%;
