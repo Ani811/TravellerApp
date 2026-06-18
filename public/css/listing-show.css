@@ -23,14 +23,14 @@
 }
 .photo-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 1rem;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 0.8rem;
     align-items: start;
 }
 .main-photo {
     border-radius: 1rem;
     overflow: hidden;
-    min-height: 360px;
+    min-height: 280px;
 }
 .main-photo .listing-image {
     width: 100%;
@@ -65,11 +65,17 @@
 }
 .show-all {
     margin-top: 0.5rem;
-    padding: 0.6rem 0.9rem;
-    border-radius: 0.7rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 0.6rem;
     background: rgba(0,0,0,0.06);
     border: 1px solid rgba(0,0,0,0.05);
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.show-all:hover {
+    background: rgba(0,0,0,0.1);
 }
 .offer-badge {
     position: absolute;
